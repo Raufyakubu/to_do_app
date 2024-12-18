@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="dar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,9 +27,36 @@
         <div class="mb-3">
             <input type="text" id="taskInput" class="form-control" placeholder="Add a new task">
         </div>
-        <button class="btn btn-primary mb-3" onclick="addTask()">Add Task</button>
+        <button class="btn btn-primary mb-3" onclick="addTask()" id="addedTask">Add Task</button>
+
+        <div class="modal modal-sm fade" id="emptyTaskModal">
+            <div class="modal-dialog">
+                <div class="modal-content d-flex">
+                    <div class="modal-header justify-content-center">
+                        <h4 class="modal-title text-center">Invalid Input!</h4>
+                    </div>
+                    <div class="modal-body">
+                        Please enter a valid task. The input cannot be empty.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
 
         <div id="tasks" class="list-group mb-3"></div>
+
+        <div class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        .modal-
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="progress mb-3">
             <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated role="progressbar" style="width: 0%">0%</div>

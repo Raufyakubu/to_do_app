@@ -36,6 +36,13 @@ let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
         function addTask() {
             const taskInput = document.getElementById('taskInput');
             const taskName = taskInput.value.trim();
+
+            if(!taskName){
+                const emptyTaskModal= new bootstrap.Modal(document.getElementById('emptyTaskModal'));
+                emptyTaskModal.show();
+                return;
+            }
+
             if (taskName) {
                 tasks.push({ name: taskName, completed: false });
                 taskInput.value = '';
@@ -51,12 +58,46 @@ let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
         }
 
         function editTask(index) {
-            const newTaskName = prompt('Edit task name:', tasks[index].name);
-            if (newTaskName !== null) {
-                tasks[index].name = newTaskName.trim();
+            const currentTask = tasks[index];
+            const taskElement = document.getElementById('tasks').children[index];
+            const taskNameSpan = taskElement.querySelector('span');
+
+            const inputField = document.createElement('input');
+            inputField.type = 'text';
+            inputField.value = currentTask.name;
+            inputField.className = 'form-control mb-2';
+            inputField.style.width = '80%';
+
+            taskNameSpan.replaceWith(inputField);
+
+            const saveButton = document.createElement('button');
+            saveButton.className = 'btn btn-success btn-sm me-2';
+            saveButton.textContent = 'Save';
+            saveButton.onclick = function () {
+                const newTaskName = inputField.value.trim();
+
+                if (!newTaskName){
+                    const emptyTaskModal = new bootstrap.Modal(document.getElementById('emptyTaskModal'));
+                    emptyTaskModal.show();
+                    return;
+                }
+                tasks[index].name = newTaskName;
                 saveTasks();
                 renderTasks();
-            }
+            };
+
+            const cancelButton = document.createElement('button');
+            cancelButton.className = 'btn btn-secondary btn-sm';
+            cancelButton.textContent = 'Cancel';
+            cancelButton.onclick = function () {
+                renderTasks();
+            };
+
+            const actionDiv = taskElement.querySelector('div:nth-child(2)');
+            actionDiv.innerHTML = '';
+            actionDiv.appendChild(saveButton);
+            actionDiv.appendChild(cancelButton);
+
         }
 
         function toggleTask(index) {
